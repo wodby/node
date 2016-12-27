@@ -18,4 +18,4 @@ COPY docker-entrypoint.sh /usr/local/bin/
 CMD docker-entrypoint.sh
 
 # Install node packages
-RUN npm install -g webpack grunt gulp gulp-cli
+RUN npm install --global gulp gulp-cli grunt webpack
