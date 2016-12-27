@@ -7,10 +7,14 @@ REPO = node
 NAME = node
 INSTANCE = default
 
-.PHONY: build push shell run start stop logs rm release
+.PHONY: build test push shell run start stop logs rm release
 
 build:
 	docker build -t $(NS)/$(REPO):$(VERSION) ./
+
+test:
+	docker run --rm --name $(NAME)-$(INSTANCE) -i -t $(PORTS) $(VOLUMES) $(ENV) $(NS)/$(REPO):$(VERSION) \
+	    node --version | grep -q $(VERSION)
 
 push:
 	docker push $(NS)/$(REPO):$(VERSION)
