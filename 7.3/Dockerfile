@@ -20,3 +20,6 @@ VOLUME /var/www/html
 
 COPY docker-entrypoint.sh /usr/local/bin/
 CMD docker-entrypoint.sh
+
+# Install node packages
+RUN npm install --global gulp-cli grunt webpack
