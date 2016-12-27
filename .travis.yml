@@ -11,14 +11,15 @@ env:
   matrix:
     - VERSION=7.3
 
-install: cd $VERSION && make build
+install:
+  - cd ./$VERSION
+  - make build
 
-script: cd $VERSION && make test
+script: make test
 
 after_success: |
   if [ "$TRAVIS_PULL_REQUEST" == "false" ] && ([ "$TRAVIS_BRANCH" == "master" ] || [ -n "$TRAVIS_TAG" ]); then
     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    cd $VERSION
     make release
     make rm
   fi
