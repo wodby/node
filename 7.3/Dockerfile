@@ -1,11 +1,11 @@
 FROM node:7.3-alpine
 MAINTAINER Wodby <admin@wodby.com>
 
-# Create user www-data
-RUN adduser -D -u 82 www-data
-
 # Install packages
 RUN apk add --no-cache bash
+
+# Create user www-data
+RUN adduser -D -s /bin/bash -u 82 www-data
 
 # Create work dir
 RUN mkdir -p /var/www/html && \
@@ -18,4 +18,4 @@ COPY docker-entrypoint.sh /usr/local/bin/
 CMD docker-entrypoint.sh
 
 # Install node packages
-RUN npm install --global gulp-cli grunt webpack
+RUN npm install -g webpack grunt gulp
