@@ -1,15 +1,11 @@
 FROM node:7.3-alpine
 MAINTAINER Wodby <admin@wodby.com>
 
-ARG WWW_DATA_UID=82
-ARG WWW_DATA_GID=82
+# Create user www-data
+RUN adduser -D -u 82 www-data
 
 # Install packages
 RUN apk add --no-cache bash
-
-# Create user www-data
-RUN addgroup -g $WWW_DATA_GID -S www-data && \
-	adduser -u $WWW_DATA_UID -D -S -G www-data www-data
 
 # Create work dir
 RUN mkdir -p /var/www/html && \
