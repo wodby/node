@@ -5,4 +5,4 @@
 
 # Supported tags and respective `Dockerfile` links
 
--       [`7.3`, `latest` (*6.3/Dockerfile*)](https://github.com/wodby/node/tree/master/7.3/Dockerfile)
+-       [`7.3`, `latest` (*7.3/Dockerfile*)](https://github.com/wodby/node/tree/master/7.3/Dockerfile)
