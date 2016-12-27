@@ -23,11 +23,11 @@ after_success: |
     make release
 
     if [ -n "$TRAVIS_TAG" ]; then
-      version="$VERSION-$TRAVIS_TAG" make release
+      make VERSION="$VERSION-$TRAVIS_TAG" release
     fi
 
     if [ "$VERSION" == "7.3" ]; then
-      version=latest make release
+      make VERSION=latest release
     fi
   fi
 
