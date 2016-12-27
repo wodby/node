@@ -21,6 +21,14 @@ after_success: |
   if [ "$TRAVIS_PULL_REQUEST" == "false" ] && ([ "$TRAVIS_BRANCH" == "master" ] || [ -n "$TRAVIS_TAG" ]); then
     docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     make release
+
+    if [ -n "$TRAVIS_TAG" ]; then
+      version="$VERSION-$TRAVIS_TAG" make release
+    fi
+
+    if [ "$VERSION" == "7.3" ]; then
+      version=latest make release
+    fi
   fi
 
 after_failure:
