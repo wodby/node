@@ -13,7 +13,7 @@ env:
 
 install:
   - cd ./$VERSION
-  - make build
+  - make
 
 script: make test
 
