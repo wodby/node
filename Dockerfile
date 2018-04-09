@@ -15,7 +15,7 @@ RUN set -ex; \
     chmod +x /usr/local/bin/init_volumes; \
     echo 'node ALL=(root) NOPASSWD:SETENV: /usr/local/bin/init_volumes' > /etc/sudoers.d/node
 
-WORKDIR /usr/src/app
+WORKDIR ${APP_ROOT}
 
 USER node
 
