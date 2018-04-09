@@ -1,8 +1,22 @@
+# Node Docker Container Images
 
 [![Build Status](https://travis-ci.org/wodby/node.svg?branch=master)](https://travis-ci.org/wodby/node)
 [![Docker Pulls](https://img.shields.io/docker/pulls/wodby/node.svg)](https://hub.docker.com/r/wodby/node)
 [![Docker Stars](https://img.shields.io/docker/stars/wodby/node.svg)](https://hub.docker.com/r/wodby/node)
+[![Docker Layers](https://images.microbadger.com/badges/image/wodby/node.svg)](https://microbadger.com/images/wodby/node)
 
-# Supported tags and respective `Dockerfile` links
+## Docker Images
 
--       [`7.3`, `latest` (*7.3/Dockerfile*)](https://github.com/wodby/node/tree/master/7.3/Dockerfile)
+!!! For better reliability we release images with stability tags (`wodby/node:8-X.X.X`) which correspond to [git tags](https://github.com/wodby/node/releases). We **STRONGLY RECOMMEND** using images only with stability tags. 
+
+Overview:
+
+* All images are based on Alpine Linux
+* Base image: [node](https://hub.docker.com/r/_/node/)
+* [Travis CI builds](https://travis-ci.org/wodby/node) 
+* [Docker Hub](https://hub.docker.com/r/wodby/node)
+
+Supported tags and respective `Dockerfile` links:
+
+* `9`, `9.11`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+* `8`, `8.11` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
