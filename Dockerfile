@@ -3,7 +3,8 @@ ARG BASE_IMAGE_TAG
 FROM node:${BASE_IMAGE_TAG}
 
 ENV APP_ROOT="/usr/src/app" \
-    FILES_DIR="/mnt/files"
+    FILES_DIR="/mnt/files" \
+    PATH="/home/node/.yarn/bin:$PATH"
 
 RUN set -ex; \
     apk add --update bash sudo; \
