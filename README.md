@@ -20,3 +20,25 @@ Supported tags and respective `Dockerfile` links:
 
 * `9`, `9.11`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 * `8`, `8.11` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+
+## Environment variables 
+
+| Variable     | Default Value  | Description            |
+| ------------ | -------------- | ---------------------- |
+| `NODE_PORT`  | `3000`         | Used for health checks |
+
+## Orchestration actions
+
+Usage:
+```
+make COMMAND [params ...]
+
+commands:
+    check-ready [host max_try wait_seconds delay_seconds]
+ 
+default params values:
+    host localhost
+    max_try 1
+    wait_seconds 1
+    delay_seconds 0
+```
