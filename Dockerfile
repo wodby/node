@@ -33,6 +33,7 @@ WORKDIR ${APP_ROOT}
 USER node
 
 COPY docker-entrypoint.sh /
+COPY bin /usr/local/bin/
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD [ "node" ]
