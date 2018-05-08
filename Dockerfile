@@ -11,9 +11,10 @@ ENV APP_ROOT="/usr/src/app" \
 RUN set -ex; \
     \
     apk add --update \
-        bash \
+        bash \        
         ca-certificates \
         curl \
+        git \
         make \
         wget \
         sudo; \
