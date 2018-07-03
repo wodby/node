@@ -4,12 +4,10 @@ services:
   - docker
 
 env:
-  global:
-    - LATEST_TAG=9.11
   matrix:
-    - TAG=9.11 NODE_VER=9.11.1 EXTRA_TAG=9
-    - TAG=8.11 NODE_VER=8.11.1 EXTRA_TAG=8
-    - TAG=6.14 NODE_VER=6.14.2 EXTRA_TAG=6
+    - NODE_VER=9.11.2 TAGS=9.11,9,latest
+    - NODE_VER=8.11.3 TAG=8.11,8
+    - NODE_VER=6.14.3 TAG=6.14,6
 
 script:
   - make && make test
