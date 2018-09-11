@@ -1,4 +1,4 @@
-# Node Docker Container Images
+# Node.js docker container image
 
 [![Build Status](https://travis-ci.org/wodby/node.svg?branch=master)](https://travis-ci.org/wodby/node)
 [![Docker Pulls](https://img.shields.io/docker/pulls/wodby/node.svg)](https://hub.docker.com/r/wodby/node)
