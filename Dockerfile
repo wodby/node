@@ -4,9 +4,10 @@ FROM node:${BASE_IMAGE_TAG}
 
 ENV APP_ROOT="/usr/src/app" \
     FILES_DIR="/mnt/files" \
-    PATH="/home/node/.yarn/bin:$PATH" \
     GOTLP_VER="0.1.5" \
     NODE_PORT="3000"
+
+ENV PATH="/home/node/.yarn/bin:${APP_ROOT}/node_modules/.bin:${PATH}"
 
 RUN set -ex; \
     \
