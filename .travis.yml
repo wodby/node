@@ -7,7 +7,7 @@ env:
   matrix:
     - NODE_VER=10.14.0 TAGS=10.14,10,latest
     - NODE_VER=8.14.0 TAGS=8.14,8
-    - NODE_VER=6.14.4 TAGS=6.14,6
+    - NODE_VER=6.15.0 TAGS=6.15,6
 
 script:
   - make && make test
