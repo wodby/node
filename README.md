@@ -20,7 +20,7 @@ Supported tags and respective `Dockerfile` links:
 
 * `10.15`, `10`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 * `8.15`, `8` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-* `6.15`, `6` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+* `6.16`, `6` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 
 ## Environment variables 
 
