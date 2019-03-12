@@ -4,9 +4,10 @@ FROM node:${BASE_IMAGE_TAG}
 
 ENV APP_ROOT="/usr/src/app" \
     FILES_DIR="/mnt/files" \
-    NODE_PORT="3000"
+    NODE_PORT="3000" \
+    NPM_CONFIG_PREFIX="/home/node/.npm-global"
 
-ENV PATH="/home/node/.yarn/bin:${APP_ROOT}/node_modules/.bin:${PATH}"
+ENV PATH="/home/node/.yarn/bin:${APP_ROOT}/node_modules/.bin:${NPM_CONFIG_PREFIX}/bin:${PATH}"
 
 RUN set -ex; \
     \
