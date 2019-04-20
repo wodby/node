@@ -6,7 +6,7 @@ services:
 env:
   matrix:
     - NODE_VER=10.15.3 TAGS=10.15,10,latest
-    - NODE_VER=8.15.1 TAGS=8.15,8
+    - NODE_VER=8.16.0 TAGS=8.16,8
     - NODE_VER=6.17.1 TAGS=6.17,6
 
 script:
