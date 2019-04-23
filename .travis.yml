@@ -5,12 +5,19 @@ services:
 
 env:
   matrix:
-    - NODE_VER=10.15.3 TAGS=10.15,10,latest
-    - NODE_VER=8.16.0 TAGS=8.16,8
-    - NODE_VER=6.17.1 TAGS=6.17,6
+  - NODE_VER=10.15.3 TAGS=10.15,10,latest
+  - NODE_VER=8.16.0 TAGS=8.16,8
+  - NODE_VER=6.17.1 TAGS=6.17,6
 
 script:
-  - make && make test
+- make && make test
 
 after_success:
-  - . "${TRAVIS_BUILD_DIR}/release.sh"
+- . "${TRAVIS_BUILD_DIR}/release.sh"
+
+notifications:
+  email:
+    recipients:
+    - travisci@wodby.com
+    on_success: never
+    on_failure: always
