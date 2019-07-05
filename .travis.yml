@@ -5,7 +5,7 @@ services:
 
 env:
   matrix:
-  - NODE_VER=12.5.0 TAGS=12.5,12,latest
+  - NODE_VER=12.6.0 TAGS=12.6,12,latest
   - NODE_VER=10.16.0 TAGS=10.16,10
   - NODE_VER=8.16.0 TAGS=8.16,8
 
