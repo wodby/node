@@ -18,6 +18,11 @@ RUN set -ex; \
         git \
         make \
         wget \
+        libtool \
+        automake \
+        autoconf \
+        g++ \
+        nasm \
         sudo; \
     \
     mkdir -p "${APP_ROOT}" "${FILES_DIR}"; \
