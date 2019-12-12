@@ -2,6 +2,8 @@ ARG BASE_IMAGE_TAG
 
 FROM node:${BASE_IMAGE_TAG}
 
+ARG NODE_DEV
+
 ENV APP_ROOT="/usr/src/app" \
     FILES_DIR="/mnt/files" \
     NODE_PORT="3000" \
@@ -19,6 +21,16 @@ RUN set -ex; \
         make \
         wget \
         sudo; \
+    \
+    if [[ -n "${NODE_DEV}" ]]; then \
+        # Install dev packages
+        apk add --update --no-cache -t .wodby-node-build-deps python2 sudo; \
+        # Configure sudoers
+        { \
+            echo 'Defaults env_keep += "APP_ROOT FILES_DIR"' ; \
+            echo 'wodby ALL=(root) NOPASSWD:SETENV:ALL'; \
+        } | tee /etc/sudoers.d/node; \
+    fi; \
     \
     mkdir -p "${APP_ROOT}" "${FILES_DIR}"; \
     chown node:node "${APP_ROOT}" "${FILES_DIR}"; \

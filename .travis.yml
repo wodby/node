@@ -1,13 +1,16 @@
 language: bash
 
 services:
-  - docker
+- docker
 
 env:
   matrix:
   - NODE_VER=12.13.1 TAGS=12.13,12,latest
   - NODE_VER=10.17.0 TAGS=10.17,10
   - NODE_VER=8.16.2 TAGS=8.16,8
+  - NODE_VER=12.13.1 NODE_DEV=1 TAGS=12.13-dev,12-dev,dev
+  - NODE_VER=10.17.0 NODE_DEV=1 TAGS=10.17-dev,10-dev
+  - NODE_VER=8.16.2 NODE_DEV=1 TAGS=8.16-dev,8-dev
 
 script:
 - make && make test

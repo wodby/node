@@ -10,6 +10,14 @@ TAG ?= $(NODE_VER_MINOR)
 REPO = wodby/node
 NAME = node-$(NODE_VER_MINOR)
 
+ifneq ($(NODE_DEV),)
+    NAME := $(NAME)-dev
+endif
+
+ifneq ($(NODE_DEV),)
+	TAG ?= $(TAG)-dev
+endif
+
 ifneq ($(STABILITY_TAG),)
     ifneq ($(TAG),latest)
         override TAG := $(TAG)-$(STABILITY_TAG)
@@ -21,7 +29,10 @@ endif
 default: build
 
 build:
-	docker build -t $(REPO):$(TAG) --build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) ./
+	docker build -t $(REPO):$(TAG) \
+		--build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) \
+		--build-arg NODE_DEV=$(NODE_DEV) \
+		./
 
 test:
 	IMAGE=$(REPO):$(TAG) echo "SKIP"
