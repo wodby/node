@@ -23,14 +23,17 @@ RUN set -ex; \
         sudo; \
     \
     if [[ -n "${NODE_DEV}" ]]; then \
-        # Install dev packages
-        apk add --update --no-cache -t .wodby-node-build-deps python2 sudo; \
-        # Configure sudoers
-        { \
-            echo 'Defaults env_keep += "APP_ROOT FILES_DIR"' ; \
-            echo 'wodby ALL=(root) NOPASSWD:SETENV:ALL'; \
-        } | tee /etc/sudoers.d/node; \
+        apk add --update --no-cache -t .wodby-node-build-deps python2; \
     fi; \
+    \
+    { \
+        echo 'Defaults env_keep += "APP_ROOT FILES_DIR"' ; \
+        if [[ -n "${NODE_DEV}" ]]; then \
+            echo 'node ALL=(root) NOPASSWD:SETENV:ALL'; \
+        else \
+            echo 'node ALL=(root) NOPASSWD:SETENV: /usr/local/bin/init_volumes' > /etc/sudoers.d/node; \
+        fi; \
+    } | tee /etc/sudoers.d/node; \
     \
     mkdir -p "${APP_ROOT}" "${FILES_DIR}"; \
     chown node:node "${APP_ROOT}" "${FILES_DIR}"; \
@@ -40,8 +43,7 @@ RUN set -ex; \
     wget -qO- "${url}" | tar xz -C /usr/local/bin; \
     \
     echo "chown node:node ${APP_ROOT} ${FILES_DIR}" > /usr/local/bin/init_volumes; \
-    chmod +x /usr/local/bin/init_volumes; \
-    echo 'node ALL=(root) NOPASSWD:SETENV: /usr/local/bin/init_volumes' > /etc/sudoers.d/node
+    chmod +x /usr/local/bin/init_volumes
 
 WORKDIR ${APP_ROOT}
 
