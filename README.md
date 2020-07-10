@@ -7,23 +7,25 @@
 
 ## Docker Images
 
-❗️For better reliability we release images with stability tags (`wodby/node:12-X.X.X`) which correspond to [git tags](https://github.com/wodby/node/releases). We strongly recommend using images only with stability tags. 
+❗️For better reliability we release images with stability tags (`wodby/node:14-X.X.X`) which correspond to [git tags](https://github.com/wodby/node/releases). We strongly recommend using images only with stability tags. 
 
 Overview:
 
-* All images are based on Alpine Linux
-* Base image: [node](https://hub.docker.com/r/_/node/)
-* [Travis CI builds](https://travis-ci.org/wodby/node) 
-* [Docker Hub](https://hub.docker.com/r/wodby/node)
+- All images based on Alpine Linux
+- Base image: [node](https://hub.docker.com/r/_/node/)
+- [Travis CI builds](https://travis-ci.org/wodby/node) 
+- [Docker Hub](https://hub.docker.com/r/wodby/node)
 
 Supported tags and respective `Dockerfile` links:
 
-* `12.18`, `12`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-* `10.21`, `10` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-* `8.17`, `8` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-* `12.13-dev`, `12-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-* `10.17-dev`, `10-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-* `8.16-dev`, `8-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `14.5`, `14`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `12.18`, `12` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `10.21`, `10` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `8.17`, `8` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `14.5-dev`, `14-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `12.13-dev`, `12-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `10.17-dev`, `10-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `8.16-dev`, `8-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 
 Images with `-dev` tag have dev packages and `sudo` allowed for all commands for `wodby` user.
 
