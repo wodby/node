@@ -5,11 +5,11 @@ services:
 
 env:
   matrix:
-  - NODE_VER=14.8.0 TAGS=14.8,14,latest
+  - NODE_VER=14.9.0 TAGS=14.9,14,latest
   - NODE_VER=12.18.3 TAGS=12.18,12
   - NODE_VER=10.22.0 TAGS=10.22,10
   - NODE_VER=8.17.0 TAGS=8.17,8
-  - NODE_VER=14.8.0 NODE_DEV=1 TAGS=14.5-dev,14-dev,dev
+  - NODE_VER=14.9.0 NODE_DEV=1 TAGS=14.5-dev,14-dev,dev
   - NODE_VER=12.18.3 NODE_DEV=1 TAGS=12.13-dev,12-dev
   - NODE_VER=10.22.0 NODE_DEV=1 TAGS=10.17-dev,10-dev
   - NODE_VER=8.17.0 NODE_DEV=1 TAGS=8.16-dev,8-dev
