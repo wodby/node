@@ -1,0 +1,34 @@
+name: Build
+description: Build node image
+inputs:
+  version:
+    description: version
+    required: true
+  tags:
+    description: image tags
+    required: true
+  dev:
+    description: dev version of the image
+    required: false
+  username:
+    description: docker username
+    required: true
+  password:
+    description: docker password
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - name: Build image
+    env:
+      NODE_VER: ${{ inputs.version }}
+      NODE_DEV: ${{ inputs.dev }}
+      DOCKER_USERNAME: ${{ inputs.username }}
+      DOCKER_PASSWORD: ${{ inputs.password }}
+      TAGS: ${{ inputs.tags }}
+    run: |
+      set -e
+      make
+      make test
+      . $GITHUB_ACTION_PATH/release.sh
+    shell: bash
