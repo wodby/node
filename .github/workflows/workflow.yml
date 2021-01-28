@@ -35,7 +35,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./.github/actions
       with:
-        version: 10.23.1
+        version: 10.23.2
         tags: 10.23,10
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
@@ -77,7 +77,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./.github/actions
       with:
-        version: 10.23.1
+        version: 10.23.2
         tags: 10.23-dev,10-dev
         dev: 1
         username: ${{ secrets.DOCKER_USERNAME }}
