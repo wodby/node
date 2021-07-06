@@ -3,7 +3,7 @@
 NODE_VER ?= 14.17.1
 
 NODE_VER_MINOR = $(shell echo "${NODE_VER}" | grep -oE '^[0-9]+\.[0-9]+')
-BASE_IMAGE_TAG = $(NODE_VER)-alpine
+BASE_IMAGE_TAG = $(NODE_VER)
 
 TAG ?= $(NODE_VER_MINOR)
 
