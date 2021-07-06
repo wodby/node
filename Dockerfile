@@ -1,6 +1,6 @@
-ARG BASE_IMAGE_TAG
+ARG NODE_VER
 
-FROM node:${BASE_IMAGE_TAG}-alpine
+FROM node:${NODE_VER}-alpine
 
 ARG NODE_DEV
 

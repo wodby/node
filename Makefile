@@ -3,7 +3,6 @@
 NODE_VER ?= 14.17.1
 
 NODE_VER_MINOR = $(shell echo "${NODE_VER}" | grep -oE '^[0-9]+\.[0-9]+')
-BASE_IMAGE_TAG = $(NODE_VER)
 
 TAG ?= $(NODE_VER_MINOR)
 
@@ -30,7 +29,7 @@ default: build
 
 build:
 	docker build -t $(REPO):$(TAG) \
-		--build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) \
+		--build-arg NODE_VER=$(NODE_VER) \
 		--build-arg NODE_DEV=$(NODE_DEV) \
 		./
 
