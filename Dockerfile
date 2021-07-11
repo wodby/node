@@ -20,6 +20,11 @@ RUN set -ex; \
         git \
         make \
         wget \
+        libtool \
+        automake \
+        autoconf \
+        g++ \
+        nasm \
         sudo; \
     \
     if [[ -n "${NODE_DEV}" ]]; then \
