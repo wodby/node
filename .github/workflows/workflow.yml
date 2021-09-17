@@ -57,7 +57,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: 14.17.6
-        tags: 14.5-dev,14-dev
+        tags: 14.17-dev,14-dev
         dev: 1
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
@@ -68,7 +68,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: 12.22.6
-        tags: 12.19-dev,12-dev
+        tags: 12.22-dev,12-dev
         dev: 1
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
