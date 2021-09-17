@@ -7,7 +7,7 @@
 
 ## Docker Images
 
-❗️For better reliability we release images with stability tags (`wodby/node:14-X.X.X`) which correspond to [git tags](https://github.com/wodby/node/releases). We strongly recommend using images only with stability tags. 
+❗️For better reliability we release images with stability tags (`wodby/node:16-X.X.X`) which correspond to [git tags](https://github.com/wodby/node/releases). We strongly recommend using images only with stability tags. 
 
 Overview:
 
@@ -18,14 +18,12 @@ Overview:
 
 Supported tags and respective `Dockerfile` links:
 
-- `14.17`, `14`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `16.9`, `16`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `14.17`, `14` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `12.22`, `12` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `10.24`, `10` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `8.17`, `8` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `14.5-dev`, `14-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `16.9-dev`, `16-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `14.5-dev`, `14-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `12.13-dev`, `12-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `10.17-dev`, `10-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `8.16-dev`, `8-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 
 Images with `-dev` tag have dev packages and `sudo` allowed for all commands for `wodby` user.
 
