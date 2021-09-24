@@ -1,6 +1,6 @@
 -include .env
 
-NODE_VER ?= 16.9.1
+NODE_VER ?= 16.10.0
 
 NODE_VER_MINOR = $(shell echo "${NODE_VER}" | grep -oE '^[0-9]+\.[0-9]+')
 
