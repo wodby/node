@@ -15,8 +15,8 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./.github/actions
       with:
-        version: '16.10.0'
-        tags: 16.10,16,latest
+        version: '16.11.0'
+        tags: 16.11,16,latest
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
   node14:
@@ -45,8 +45,8 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./.github/actions
       with:
-        version: '16.10.0'
-        tags: 16.10-dev,16-dev,dev
+        version: '16.11.0'
+        tags: 16.11-dev,16-dev,dev
         dev: 1
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
