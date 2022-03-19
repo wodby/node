@@ -35,7 +35,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./.github/actions
       with:
-        version: '12.22.10'
+        version: '12.22.11'
         tags: 12.22,12
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
@@ -67,7 +67,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./.github/actions
       with:
-        version: '12.22.10'
+        version: '12.22.11'
         tags: 12.22-dev,12-dev
         dev: 1
         username: ${{ secrets.DOCKER_USERNAME }}
