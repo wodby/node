@@ -14,7 +14,7 @@ ENV PATH="/home/node/.yarn/bin:${APP_ROOT}/node_modules/.bin:${NPM_CONFIG_PREFIX
 RUN set -ex; \
     \
     apk add --update \
-        bash \        
+        bash \
         ca-certificates \
         curl \
         git \
@@ -23,7 +23,7 @@ RUN set -ex; \
         sudo; \
     \
     if [[ -n "${NODE_DEV}" ]]; then \
-        apk add --update --no-cache -t .wodby-node-build-deps python2; \
+        apk add --update --no-cache -t .wodby-node-build-deps python; \
     fi; \
     \
     { \
