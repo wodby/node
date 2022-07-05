@@ -34,7 +34,7 @@ build:
 		./
 
 test:
-	IMAGE=$(REPO):$(TAG) echo "SKIP"
+	IMAGE=$(REPO):$(TAG) echo "no tests :("
 
 push:
 	docker push $(REPO):$(TAG)

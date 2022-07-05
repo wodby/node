@@ -23,7 +23,7 @@ RUN set -ex; \
         sudo; \
     \
     if [[ -n "${NODE_DEV}" ]]; then \
-        apk add --update --no-cache -t .wodby-node-build-deps python; \
+        apk add --update --no-cache -t .wodby-node-build-deps python3; \
     fi; \
     \
     { \
