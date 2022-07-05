@@ -10,12 +10,6 @@ inputs:
   dev:
     description: dev version of the image
     required: false
-  username:
-    description: docker username
-    required: true
-  password:
-    description: docker password
-    required: true
 runs:
   using: "composite"
   steps:
@@ -23,8 +17,6 @@ runs:
     env:
       NODE_VER: ${{ inputs.version }}
       NODE_DEV: ${{ inputs.dev }}
-      DOCKER_USERNAME: ${{ inputs.username }}
-      DOCKER_PASSWORD: ${{ inputs.password }}
       TAGS: ${{ inputs.tags }}
     run: |
       set -e

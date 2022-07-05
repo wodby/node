@@ -8,67 +8,62 @@ on:
     tags:
     - '*'
 
+env:
+  NODE18: '18.4.0'
+  NODE16: '16.15.1'
+  NODE14: '14.19.3'
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
 jobs:
+  node18:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./.github/actions
+      with:
+        version: ${{ env.NODE18 }}
+        tags: 18.4,18,latest
   node16:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions
       with:
-        version: '16.15.1'
-        tags: 16.15,16,latest
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        version: ${{ env.NODE16 }}
+        tags: 16.15,16
   node14:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions
       with:
-        version: '14.19.3'
+        version: ${{ env.NODE14 }}
         tags: 14.19,14
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-  node12:
+  node18-dev:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions
       with:
-        version: '12.22.12'
-        tags: 12.22,12
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        version: ${{ env.NODE18 }}
+        tags: 18.4-dev,18-dev,dev
+        dev: 1
   node16-dev:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions
       with:
-        version: '16.15.1'
-        tags: 16.15-dev,16-dev,dev
+        version: ${{ env.NODE16 }}
+        tags: 16.15-dev,16-dev
         dev: 1
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
   node14-dev:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/actions
       with:
-        version: '14.19.3'
+        version: ${{ env.NODE14 }}
         tags: 14.19-dev,14-dev
         dev: 1
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-  node12-dev:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: ./.github/actions
-      with:
-        version: '12.22.12'
-        tags: 12.22-dev,12-dev
-        dev: 1
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
