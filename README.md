@@ -17,7 +17,7 @@ Overview:
 
 Supported tags and respective `Dockerfile` links:
 
-- `18.5`, `18`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `18.6`, `18`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `16.16`, `16` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `14.20`, `14` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `18.4-dev`, `18-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
