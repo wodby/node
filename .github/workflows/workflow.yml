@@ -9,7 +9,7 @@ on:
     - '*'
 
 env:
-  NODE18: '18.8.0'
+  NODE18: '18.9.0'
   NODE16: '16.17.0'
   NODE14: '14.20.0'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -23,7 +23,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: ${{ env.NODE18 }}
-        tags: 18.8,18,latest
+        tags: 18.9,18,latest
   node16:
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +47,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: ${{ env.NODE18 }}
-        tags: 18.8-dev,18-dev,dev
+        tags: 18.9-dev,18-dev,dev
         dev: 1
   node16-dev:
     runs-on: ubuntu-latest
