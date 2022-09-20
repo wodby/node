@@ -10,6 +10,10 @@ inputs:
   dev:
     description: dev version of the image
     required: false
+  platform:
+    description: docker platform
+    required: false
+    default: linux/amd64
 runs:
   using: "composite"
   steps:
@@ -18,9 +22,11 @@ runs:
       NODE_VER: ${{ inputs.version }}
       NODE_DEV: ${{ inputs.dev }}
       TAGS: ${{ inputs.tags }}
+      PLATFORM: ${{ inputs.platform }}
     run: |
       set -e
-      make
+      make buildx-build-amd64
       make test
+      make buildx-build
       . $GITHUB_ACTION_PATH/release.sh
     shell: bash

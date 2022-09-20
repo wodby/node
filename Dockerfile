@@ -3,6 +3,7 @@ ARG NODE_VER
 FROM node:${NODE_VER}-alpine
 
 ARG NODE_DEV
+ARG TARGETPLATFORM
 
 ENV APP_ROOT="/usr/src/app" \
     FILES_DIR="/mnt/files" \
@@ -38,9 +39,9 @@ RUN set -ex; \
     mkdir -p "${APP_ROOT}" "${FILES_DIR}"; \
     chown node:node "${APP_ROOT}" "${FILES_DIR}"; \
     \
-    gotlp_ver="0.1.5"; \
-    url="https://github.com/wodby/gotpl/releases/download/${gotlp_ver}/gotpl-alpine-linux-amd64-${gotlp_ver}.tar.gz"; \
-    wget -qO- "${url}" | tar xz -C /usr/local/bin; \
+    dockerplatform=${TARGETPLATFORM:-linux/amd64};\
+    gotpl_url="https://github.com/wodby/gotpl/releases/download/0.3.3/gotpl-${dockerplatform/\//-}.tar.gz"; \
+    wget -qO- "${gotpl_url}" | tar xz --no-same-owner -C /usr/local/bin; \
     \
     echo "chown node:node ${APP_ROOT} ${FILES_DIR}" > /usr/local/bin/init_volumes; \
     chmod +x /usr/local/bin/init_volumes

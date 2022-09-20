@@ -26,6 +26,8 @@ Supported tags and respective `Dockerfile` links:
 
 Images with `-dev` tag have dev packages and `sudo` allowed for all commands for `wodby` user.
 
+All images built for `linux/amd64` and `linux/arm64`
+
 ## Environment variables 
 
 | Variable    | Default Value | Description            |

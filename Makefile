@@ -1,6 +1,6 @@
 -include .env
 
-NODE_VER ?= 16.17.0
+NODE_VER ?= 18.9.0
 
 NODE_VER_MINOR = $(shell echo "${NODE_VER}" | grep -oE '^[0-9]+\.[0-9]+')
 
@@ -23,12 +23,35 @@ ifneq ($(STABILITY_TAG),)
     endif
 endif
 
-.PHONY: build test push shell run start stop logs clean release
+PLATFORM ?= linux/amd64
+
+.PHONY: build buildx-build buildx-build-amd64 buildx-push test push shell run start stop logs clean release
 
 default: build
 
 build:
 	docker build -t $(REPO):$(TAG) \
+		--build-arg NODE_VER=$(NODE_VER) \
+		--build-arg NODE_DEV=$(NODE_DEV) \
+		./
+
+# --load doesn't work with multiple platforms https://github.com/docker/buildx/issues/59
+# we need to save cache to run tests first.
+buildx-build-amd64:
+	docker buildx build --platform linux/amd64 -t $(REPO):$(TAG) \
+		--build-arg NODE_VER=$(NODE_VER) \
+		--build-arg NODE_DEV=$(NODE_DEV) \
+		--load \
+		./
+
+buildx-build:
+	docker buildx build --platform $(PLATFORM) -t $(REPO):$(TAG) \
+		--build-arg NODE_VER=$(NODE_VER) \
+		--build-arg NODE_DEV=$(NODE_DEV) \
+		./
+
+buildx-push:
+	docker buildx build --platform $(PLATFORM) --push -t $(REPO):$(TAG) \
 		--build-arg NODE_VER=$(NODE_VER) \
 		--build-arg NODE_DEV=$(NODE_DEV) \
 		./
