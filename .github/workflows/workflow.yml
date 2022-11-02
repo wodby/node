@@ -11,7 +11,7 @@ on:
 env:
   NODE18: '18.12.0'
   NODE16: '16.18.0'
-  NODE14: '14.20.1'
+  NODE14: '14.21.0'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
@@ -53,7 +53,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: ${{ env.NODE14 }}
-        tags: 14.20,14
+        tags: 14.21,14
         platform: linux/amd64,linux/arm64
   node18-dev:
     runs-on: ubuntu-latest
@@ -94,6 +94,6 @@ jobs:
     - uses: ./.github/actions
       with:
         version: ${{ env.NODE14 }}
-        tags: 14.20-dev,14-dev
+        tags: 14.21-dev,14-dev
         dev: 1
         platform: linux/amd64,linux/arm64
