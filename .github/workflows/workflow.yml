@@ -9,7 +9,7 @@ on:
     - '*'
 
 env:
-  NODE18: '18.13.0'
+  NODE18: '18.14.0'
   NODE16: '16.19.0'
   NODE14: '14.21.2'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -27,7 +27,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: ${{ env.NODE18 }}
-        tags: 18.13,18,latest
+        tags: 18.14,18,latest
         platform: linux/amd64,linux/arm64
   node16:
     runs-on: ubuntu-latest
@@ -66,7 +66,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: ${{ env.NODE18 }}
-        tags: 18.13-dev,18-dev,dev
+        tags: 18.14-dev,18-dev,dev
         dev: 1
         platform: linux/amd64,linux/arm64
   node16-dev:
