@@ -10,7 +10,7 @@ on:
 
 env:
   NODE18: '18.15.0'
-  NODE16: '16.19.1'
+  NODE16: '16.20.0'
   NODE14: '14.21.3'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -40,7 +40,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: ${{ env.NODE16 }}
-        tags: 16.19,16
+        tags: 16.20,16
         platform: linux/amd64,linux/arm64
   node14:
     runs-on: ubuntu-latest
@@ -80,7 +80,7 @@ jobs:
     - uses: ./.github/actions
       with:
         version: ${{ env.NODE16 }}
-        tags: 16.19-dev,16-dev
+        tags: 16.20-dev,16-dev
         dev: 1
         platform: linux/amd64,linux/arm64
   node14-dev:
