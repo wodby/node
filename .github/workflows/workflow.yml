@@ -10,7 +10,7 @@ on:
 
 env:
   NODE20: '20.8.0'
-  NODE18: '18.18.0'
+  NODE18: '18.18.1'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
