@@ -9,7 +9,7 @@ on:
     - '*'
 
 env:
-  NODE20: '20.11.0'
+  NODE20: '20.11.1'
   NODE18: '18.19.0'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
