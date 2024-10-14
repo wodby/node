@@ -40,7 +40,7 @@ RUN set -ex; \
     chown node:node "${APP_ROOT}" "${FILES_DIR}"; \
     \
     dockerplatform=${TARGETPLATFORM:-linux/amd64};\
-    gotpl_url="https://github.com/wodby/gotpl/releases/download/0.3.3/gotpl-${dockerplatform/\//-}.tar.gz"; \
+    gotpl_url="https://github.com/wodby/gotpl/releases/latest/download/gotpl-${dockerplatform/\//-}.tar.gz"; \
     wget -qO- "${gotpl_url}" | tar xz --no-same-owner -C /usr/local/bin; \
     \
     echo "chown node:node ${APP_ROOT} ${FILES_DIR}" > /usr/local/bin/init_volumes; \
