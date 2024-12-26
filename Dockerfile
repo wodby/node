@@ -28,6 +28,7 @@ RUN set -ex; \
     fi; \
     \
     { \
+        echo "Defaults secure_path=\"$PATH\""; \
         echo 'Defaults env_keep += "APP_ROOT FILES_DIR"' ; \
         if [[ -n "${NODE_DEV}" ]]; then \
             echo 'node ALL=(root) NOPASSWD:SETENV:ALL'; \
