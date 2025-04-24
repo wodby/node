@@ -9,7 +9,7 @@ on:
     - '*'
 
 env:
-  NODE22: '22.14.0'
+  NODE22: '22.15.0'
   NODE20: '20.19.1'
   NODE18: '18.20.8'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -27,7 +27,7 @@ jobs:
       - uses: ./.github/actions
         with:
           version: ${{ env.NODE22 }}
-          tags: 22.14,22,latest
+          tags: 22.15,22,latest
           platform: linux/amd64,linux/arm64
   node20:
     runs-on: ubuntu-latest
@@ -66,7 +66,7 @@ jobs:
       - uses: ./.github/actions
         with:
           version: ${{ env.NODE22 }}
-          tags: 22.14-dev,22-dev,dev
+          tags: 22.15-dev,22-dev,dev
           dev: 1
           platform: linux/amd64,linux/arm64
   node20-dev:
