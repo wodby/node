@@ -6,29 +6,30 @@
 
 ## Docker Images
 
-❗️For better reliability we release images with stability tags (`wodby/node:22-X.X.X`) which correspond to [git tags](https://github.com/wodby/node/releases). We strongly recommend using images only with stability tags. 
+❗️For better reliability we release images with stability tags (
+`wodby/node:24-X.X.X`) which correspond to [git tags](https://github.com/wodby/node/releases). We strongly recommend using images only with stability tags.
 
 Overview:
 
 - All images based on Alpine Linux
 - Base image: [node](https://hub.docker.com/r/_/node/)
-- [GitHub actions builds](https://github.com/wodby/node/actions) 
+- [GitHub actions builds](https://github.com/wodby/node/actions)
 - [Docker Hub](https://hub.docker.com/r/wodby/node)
 
 Supported tags and respective `Dockerfile` links:
 
-- `22.19`, `22`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `24.7`, `24`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `22.19`, `22` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `20.19`, `20` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `18.20`, `18` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `22.19-dev`, `22-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `24.7-dev`, `24-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `22.19-dev`, `22-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `20.19-dev`, `20-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `18.4-dev`, `18-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 
 Images with `-dev` tag have dev packages and `sudo` allowed for all commands for `wodby` user.
 
 All images built for `linux/amd64` and `linux/arm64`
 
-## Environment variables 
+## Environment variables
 
 | Variable    | Default Value | Description            |
 |-------------|---------------|------------------------|
@@ -37,6 +38,7 @@ All images built for `linux/amd64` and `linux/arm64`
 ## Orchestration actions
 
 Usage:
+
 ```
 make COMMAND [params ...]
 

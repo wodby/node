@@ -1,6 +1,6 @@
 -include .env
 
-NODE_VER ?= 22.19.0
+NODE_VER ?= 24.7.0
 
 NODE_VER_MINOR = $(shell echo "${NODE_VER}" | grep -oE '^[0-9]+\.[0-9]+')
 
@@ -57,7 +57,7 @@ buildx-push:
 		./
 
 test:
-	IMAGE=$(REPO):$(TAG) echo "no tests :("
+	cd ./tests && IMAGE=$(REPO):$(TAG) NAME=$(NAME) ./run.sh
 
 push:
 	docker push $(REPO):$(TAG)
