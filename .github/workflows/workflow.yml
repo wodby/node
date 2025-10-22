@@ -10,7 +10,7 @@ on:
 
 env:
   NODE24: '24.10.0'
-  NODE22: '22.20.0'
+  NODE22: '22.21.0'
   NODE20: '20.19.5'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -40,7 +40,7 @@ jobs:
       - uses: ./.github/actions
         with:
           version: ${{ env.NODE22 }}
-          tags: 22.20,22
+          tags: 22.21,22
           platform: linux/amd64,linux/arm64
   node20:
     runs-on: ubuntu-latest
@@ -80,7 +80,7 @@ jobs:
       - uses: ./.github/actions
         with:
           version: ${{ env.NODE22 }}
-          tags: 22.20-dev,22-dev
+          tags: 22.21-dev,22-dev
           dev: 1
           platform: linux/amd64,linux/arm64
   node20-dev:
