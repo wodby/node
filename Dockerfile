@@ -33,7 +33,7 @@ RUN set -ex; \
         if [[ -n "${NODE_DEV}" ]]; then \
             echo 'node ALL=(root) NOPASSWD:SETENV:ALL'; \
         else \
-            echo 'node ALL=(root) NOPASSWD:SETENV: /usr/local/bin/init_volumes' > /etc/sudoers.d/node; \
+            echo 'node ALL=(root) NOPASSWD:SETENV: /usr/local/bin/init_volumes'; \
         fi; \
     } | tee /etc/sudoers.d/node; \
     \
