@@ -19,7 +19,7 @@ cleanup () {
     exit 0
 }
 
-init_volumes
+sudo init_volumes
 exec_init_scripts
 
 if [[ "${1}" == "yarn" && ! -f "package.json" ]]; then
