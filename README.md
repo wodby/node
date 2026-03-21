@@ -18,12 +18,12 @@ Overview:
 
 Supported tags and respective `Dockerfile` links:
 
-- `24.7`, `24`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `22.19`, `22` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `20.19`, `20` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `24.7-dev`, `24-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `22.19-dev`, `22-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `20.19-dev`, `20-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `24.14`, `24`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `22.22`, `22` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `20.20`, `20` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `24.14-dev`, `24-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `22.22-dev`, `22-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `20.20-dev`, `20-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 
 Images with `-dev` tag have dev packages and `sudo` allowed for all commands for `wodby` user.
 
