@@ -10,7 +10,7 @@ on:
 
 env:
   NODE24: '24.14.1'
-  NODE22: '22.22.1'
+  NODE22: '22.22.2'
   NODE20: '20.20.1'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
