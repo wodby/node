@@ -44,7 +44,7 @@ RUN set -ex; \
     gotpl_url="https://github.com/wodby/gotpl/releases/latest/download/gotpl-${dockerplatform/\//-}.tar.gz"; \
     wget -qO- "${gotpl_url}" | tar xz --no-same-owner -C /usr/local/bin; \
     \
-    echo "chown node:node ${APP_ROOT} ${FILES_DIR}" > /usr/local/bin/init_volumes; \
+    echo "chown node:node ${FILES_DIR}" > /usr/local/bin/init_volumes; \
     chmod +x /usr/local/bin/init_volumes
 
 WORKDIR ${APP_ROOT}
