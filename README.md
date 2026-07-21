@@ -21,11 +21,9 @@ Supported tags and respective `Dockerfile` links:
 - `26.4`, `26`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `24.18`, `24`, [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `22.23`, `22` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `20.20`, `20` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `26.4-dev`, `26-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `24.18-dev`, `24-dev`, [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `22.23-dev`, `22-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `20.20-dev`, `20-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 
 Images with `-dev` tag have dev packages and `sudo` allowed for all commands for `wodby` user.
 

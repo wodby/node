@@ -12,7 +12,6 @@ env:
   NODE26: '26.4.0'
   NODE24: '24.18.0'
   NODE22: '22.23.1'
-  NODE20: '20.20.2'
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
@@ -56,19 +55,6 @@ jobs:
           version: ${{ env.NODE22 }}
           tags: 22.23,22
           platform: linux/amd64,linux/arm64
-  node20:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: docker/setup-qemu-action@v4
-        with:
-          platforms: amd64,arm64
-      - uses: docker/setup-buildx-action@v4
-      - uses: ./.github/actions
-        with:
-          version: ${{ env.NODE20 }}
-          tags: 20.20,20
-          platform: linux/amd64,linux/arm64
   node26-dev:
     runs-on: ubuntu-latest
     steps:
@@ -109,19 +95,5 @@ jobs:
         with:
           version: ${{ env.NODE22 }}
           tags: 22.23-dev,22-dev
-          dev: 1
-          platform: linux/amd64,linux/arm64
-  node20-dev:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: docker/setup-qemu-action@v4
-        with:
-          platforms: amd64,arm64
-      - uses: docker/setup-buildx-action@v4
-      - uses: ./.github/actions
-        with:
-          version: ${{ env.NODE20 }}
-          tags: 20.20-dev,20-dev
           dev: 1
           platform: linux/amd64,linux/arm64
