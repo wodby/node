@@ -3,12 +3,13 @@ name: Build docker image
 on:
   push:
     branches:
-    - master
+      - master
 
     tags:
-    - '*'
+      - '*'
 
 env:
+  NODE26: '26.4.0'
   NODE24: '24.18.0'
   NODE22: '22.23.1'
   NODE20: '20.20.2'
@@ -16,27 +17,40 @@ env:
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
+  node26:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/setup-qemu-action@v4
+        with:
+          platforms: amd64,arm64
+      - uses: docker/setup-buildx-action@v4
+      - uses: ./.github/actions
+        with:
+          version: ${{ env.NODE26 }}
+          tags: 26.4,26,latest
+          platform: linux/amd64,linux/arm64
   node24:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: docker/setup-qemu-action@v3
+      - uses: actions/checkout@v7
+      - uses: docker/setup-qemu-action@v4
         with:
           platforms: amd64,arm64
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
       - uses: ./.github/actions
         with:
           version: ${{ env.NODE24 }}
-          tags: 24.18,24,latest
+          tags: 24.18,24
           platform: linux/amd64,linux/arm64
   node22:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: docker/setup-qemu-action@v3
+      - uses: actions/checkout@v7
+      - uses: docker/setup-qemu-action@v4
         with:
           platforms: amd64,arm64
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
       - uses: ./.github/actions
         with:
           version: ${{ env.NODE22 }}
@@ -45,38 +59,52 @@ jobs:
   node20:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
-    - uses: docker/setup-qemu-action@v3
-      with:
-        platforms: amd64,arm64
-    - uses: docker/setup-buildx-action@v3
-    - uses: ./.github/actions
-      with:
-        version: ${{ env.NODE20 }}
-        tags: 20.20,20
-        platform: linux/amd64,linux/arm64
+      - uses: actions/checkout@v7
+      - uses: docker/setup-qemu-action@v4
+        with:
+          platforms: amd64,arm64
+      - uses: docker/setup-buildx-action@v4
+      - uses: ./.github/actions
+        with:
+          version: ${{ env.NODE20 }}
+          tags: 20.20,20
+          platform: linux/amd64,linux/arm64
+  node26-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/setup-qemu-action@v4
+        with:
+          platforms: amd64,arm64
+      - uses: docker/setup-buildx-action@v4
+      - uses: ./.github/actions
+        with:
+          version: ${{ env.NODE26 }}
+          tags: 26.4-dev,26-dev,dev
+          dev: 1
+          platform: linux/amd64,linux/arm64
   node24-dev:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: docker/setup-qemu-action@v3
+      - uses: actions/checkout@v7
+      - uses: docker/setup-qemu-action@v4
         with:
           platforms: amd64,arm64
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
       - uses: ./.github/actions
         with:
           version: ${{ env.NODE24 }}
-          tags: 24.18-dev,24-dev,dev
+          tags: 24.18-dev,24-dev
           dev: 1
           platform: linux/amd64,linux/arm64
   node22-dev:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: docker/setup-qemu-action@v3
+      - uses: actions/checkout@v7
+      - uses: docker/setup-qemu-action@v4
         with:
           platforms: amd64,arm64
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
       - uses: ./.github/actions
         with:
           version: ${{ env.NODE22 }}
@@ -86,14 +114,14 @@ jobs:
   node20-dev:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
-    - uses: docker/setup-qemu-action@v3
-      with:
-        platforms: amd64,arm64
-    - uses: docker/setup-buildx-action@v3
-    - uses: ./.github/actions
-      with:
-        version: ${{ env.NODE20 }}
-        tags: 20.20-dev,20-dev
-        dev: 1
-        platform: linux/amd64,linux/arm64
+      - uses: actions/checkout@v7
+      - uses: docker/setup-qemu-action@v4
+        with:
+          platforms: amd64,arm64
+      - uses: docker/setup-buildx-action@v4
+      - uses: ./.github/actions
+        with:
+          version: ${{ env.NODE20 }}
+          tags: 20.20-dev,20-dev
+          dev: 1
+          platform: linux/amd64,linux/arm64
