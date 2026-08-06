@@ -18,10 +18,10 @@ Overview:
 
 Supported tags and respective `Dockerfile` links:
 
-- `26.6`, `26`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `26.7`, `26`, `latest` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `24.19`, `24`, [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `22.23`, `22` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
-- `26.6-dev`, `26-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
+- `26.7-dev`, `26-dev`, `dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `24.19-dev`, `24-dev`, [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 - `22.23-dev`, `22-dev` [_(Dockerfile)_](https://github.com/wodby/node/tree/master/Dockerfile)
 
