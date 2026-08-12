@@ -2,6 +2,8 @@ ARG NODE_VER
 
 FROM node:${NODE_VER}-alpine
 
+LABEL com.wodby.ci.cache="npm"
+
 ARG NODE_DEV
 ARG TARGETPLATFORM
 
