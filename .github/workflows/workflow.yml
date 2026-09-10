@@ -10,7 +10,7 @@ on:
 
 env:
   NODE26: '26.8.2'
-  NODE24: '24.20.0'
+  NODE24: '24.21.0'
   NODE22: '22.23.2'
 
 jobs:
@@ -44,7 +44,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         with:
           version: ${{ env.NODE24 }}
-          tags: 24.20,24
+          tags: 24.21,24
           platform: linux/amd64,linux/arm64
   node22:
     runs-on: ubuntu-latest
@@ -93,7 +93,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         with:
           version: ${{ env.NODE24 }}
-          tags: 24.20-dev,24-dev
+          tags: 24.21-dev,24-dev
           dev: 1
           platform: linux/amd64,linux/arm64
   node22-dev:
