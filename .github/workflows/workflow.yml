@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Check scanned-image publication
-        run: python3 tests/scout-release.py
+        run: python3 tests/scanned-image-release.py
       - uses: docker/setup-qemu-action@v4
         with:
           platforms: amd64,arm64
