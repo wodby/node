@@ -14,7 +14,9 @@ ENV APP_ROOT="/usr/src/app" \
 
 ENV PATH="/home/node/.yarn/bin:${APP_ROOT}/node_modules/.bin:${NPM_CONFIG_PREFIX}/bin:${PATH}"
 
+# Upgrade inherited packages even when their existing versions satisfy dependencies.
 RUN set -ex; \
+    apk upgrade --no-cache; \
     \
     apk add --update \
         bash \
