@@ -81,3 +81,17 @@ clean:
 	-docker rm -f $(NAME)
 
 release: build push
+
+# Keep CI scans aligned with the version, variant and architecture built by make.
+.PHONY: image-ref
+image-ref:
+	@printf '%s\n' '$(REPO):$(TAG)'
+
+# Load each platform separately so the published image is the one Scout scanned.
+.PHONY: buildx-load
+buildx-load:
+	docker buildx build --platform $(PLATFORM) -t $(REPO):$(TAG) \
+		--build-arg NODE_VER=$(NODE_VER) \
+		--build-arg NODE_DEV=$(NODE_DEV) \
+		--load \
+		./
