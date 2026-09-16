@@ -70,6 +70,7 @@ runs:
         image: docker:${{ steps.build-arm64.outputs.image }}
         platform: linux/arm64
     - name: Publish scanned images
+      if: github.event_name == 'push'
       shell: bash
       env:
         TAGS: ${{ inputs.tags }}
