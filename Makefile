@@ -1,5 +1,8 @@
 -include .env
 
+# Accept legacy build arguments during the image revision transition.
+IMAGE_REVISION ?= $(STABILITY_TAG)
+
 NODE_VER ?= 26.9.0
 
 NODE_VER_MINOR = $(shell echo "${NODE_VER}" | grep -oE '^[0-9]+\.[0-9]+')
@@ -17,9 +20,11 @@ ifneq ($(NODE_DEV),)
 	TAG ?= $(TAG)-dev
 endif
 
-ifneq ($(STABILITY_TAG),)
+ifneq ($(IMAGE_REVISION),)
     ifneq ($(TAG),latest)
-        override TAG := $(TAG)-$(STABILITY_TAG)
+        override TAG := $(TAG)-$(IMAGE_REVISION)
+    else ifneq ($(filter r%,$(IMAGE_REVISION)),)
+        override TAG := $(IMAGE_REVISION)
     endif
 endif
 
