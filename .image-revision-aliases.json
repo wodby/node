@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "image": "wodby/node",
+  "versions": [
+    {
+      "version": {
+        "env": "NODE26"
+      },
+      "variants": [
+        {
+          "short": [
+            "{minor}",
+            "{major}"
+          ],
+          "full": "{version}"
+        },
+        {
+          "short": [
+            "{minor}-dev",
+            "{major}-dev"
+          ],
+          "full": "{version}-dev"
+        }
+      ]
+    },
+    {
+      "version": {
+        "env": "NODE24"
+      },
+      "variants": [
+        {
+          "short": [
+            "{minor}",
+            "{major}"
+          ],
+          "full": "{version}"
+        },
+        {
+          "short": [
+            "{minor}-dev",
+            "{major}-dev"
+          ],
+          "full": "{version}-dev"
+        }
+      ]
+    },
+    {
+      "version": {
+        "env": "NODE22"
+      },
+      "variants": [
+        {
+          "short": [
+            "{minor}",
+            "{major}"
+          ],
+          "full": "{version}"
+        },
+        {
+          "short": [
+            "{minor}-dev",
+            "{major}-dev"
+          ],
+          "full": "{version}-dev"
+        }
+      ]
+    }
+  ]
+}
