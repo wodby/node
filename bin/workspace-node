@@ -1,10 +1,19 @@
 #!/bin/sh
-# Run project-owned package scripts without changing the repository or lockfile.
+# Prepare dependencies and start workspace commands; project scripts retain their behavior.
 set -eu
 export NODE_ENV=development
 export PORT="${PORT:-${NODE_PORT:-3000}}"
 export HOST="${HOST:-0.0.0.0}"
 export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+# Network-backed checkouts need polling; frameworks can explicitly override it.
+if [ "${WORKSPACE_POLLING:-1}" != 0 ]; then
+    interval="${WORKSPACE_POLL_INTERVAL:-1000}"
+    case "$interval" in ''|*[!0-9]*) echo 'WORKSPACE_POLL_INTERVAL must be milliseconds' >&2; exit 1 ;; esac
+    [ "$interval" -ge 100 ] && [ "$interval" -le 60000 ] || { echo 'Polling interval must be 100..60000 ms' >&2; exit 1; }
+    export CHOKIDAR_USEPOLLING="${CHOKIDAR_USEPOLLING:-true}"
+    export CHOKIDAR_INTERVAL="${CHOKIDAR_INTERVAL:-$interval}"
+    export WATCHPACK_POLLING="${WATCHPACK_POLLING:-$interval}"
+fi
 cd "${APP_ROOT:-/usr/src/app}"
 test -f package.json || { echo 'Workspace requires package.json' >&2; exit 1; }
 manager=$(node -p 'const p=require("./package.json"); (p.packageManager || "").split("@")[0]')
@@ -21,11 +30,26 @@ run_manager() {
     esac
 }
 case "${1:-}" in
+    vite-start)
+        exec node /usr/local/bin/workspace-vite.mjs
+        ;;
+    angular-start)
+        set -- --host "$HOST" --port "$PORT"
+        if [ "${WORKSPACE_POLLING:-1}" != 0 ]; then set -- "$@" --poll "${WORKSPACE_POLL_INTERVAL:-1000}"; fi
+        exec node node_modules/@angular/cli/bin/ng.js serve "$@"
+        ;;
+    next-start)
+        # Next 16 defaults to Turbopack. Use Webpack's polling path for shared volumes.
+        major=$(node -p 'parseInt(require("./node_modules/next/package.json").version, 10)')
+        set -- --hostname "$HOST" --port "$PORT"
+        if [ "$major" -ge 16 ]; then set -- --webpack "$@"; fi
+        exec node node_modules/next/dist/bin/next dev "$@"
+        ;;
     prepare)
         case "$manager" in
             npm)
                 if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then npm ci --include=dev --no-audit --no-fund
-                else npm install --include=dev --no-audit --no-fund; fi ;;
+                else npm install --include=dev --no-audit --no-fund --package-lock=false; fi ;;
             pnpm) run_manager install --frozen-lockfile ;;
             yarn)
                 case "$(run_manager --version)" in
@@ -35,15 +59,17 @@ case "${1:-}" in
             *) run_manager install ;;
         esac ;;
     start)
-        if [ -n "${WODBY_WORKSPACE_COMMAND:-}" ]; then
-            exec /bin/sh -ec "$WODBY_WORKSPACE_COMMAND"
+        # Keep the pre-contract image override as a compatibility alias.
+        command="${WORKSPACE_NODE_COMMAND:-${WODBY_WORKSPACE_COMMAND:-}}"
+        if [ -n "$command" ]; then
+            exec /bin/sh -ec "$command"
         fi
         script=$(node -p 'const s=require("./package.json").scripts || {}; s.dev ? "dev" : s.start ? "start" : ""')
-        [ -n "$script" ] || { echo 'Define a dev/start package script or WODBY_WORKSPACE_COMMAND' >&2; exit 1; }
+        [ -n "$script" ] || { echo 'Define a dev/start package script or WORKSPACE_NODE_COMMAND' >&2; exit 1; }
         case "$manager" in
             npm) exec npm run "$script" ;;
             yarn|pnpm) exec corepack "$manager" run "$script" ;;
             *) run_manager run "$script" ;;
         esac ;;
-    *) echo 'Usage: workspace-node prepare|start' >&2; exit 1 ;;
+    *) echo 'Usage: workspace-node prepare|start|next-start|vite-start|angular-start' >&2; exit 1 ;;
 esac

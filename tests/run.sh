@@ -2,6 +2,11 @@
 
 set -e
 
+bash "$PWD/workspace-contract.sh"
+if docker image inspect --format '{{range .Config.Env}}{{println .}}{{end}}' "$IMAGE" | grep -Eq '^NODE_DEV=.+$'; then
+    bash "$PWD/workspace-reload.sh"
+fi
+
 # Validate the development tool contract before application integration tests.
 docker run --rm --network none --entrypoint /bin/sh -v "$PWD/development-tools.sh:/tmp/development-tools.sh:ro" "${IMAGE}" /tmp/development-tools.sh
 

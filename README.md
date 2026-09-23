@@ -66,3 +66,30 @@ image. A version without a pin fails before the build starts.
 When adding a supported base version or variant, add its image index digest to
 `base-images.mk`. For a custom build, override `BASE_IMAGE` with a complete
 `repository:tag@sha256:...` reference.
+
+### Workspace image contract
+
+Development variants declare `com.wodby.workspace.contract=1`; ordinary variants
+leave it empty. The contract covers SSH/tool availability, workspace startup and
+preparation, and login-shell tool discovery. CI checks the label and runtime tools.
+
+`workspace-node` enables Chokidar and Watchpack polling at 1000 ms for shared
+volumes. Set `WORKSPACE_POLL_INTERVAL` (100–60000 ms) to tune the cost, or
+`WORKSPACE_POLLING=0` to disable these defaults. Explicit watcher variables
+are preserved. This does not enable watching in scripts that have no watcher.
+Keep dependencies/build output excluded in project watcher configuration.
+
+`workspace-node next-start` starts the installed Next.js CLI with Webpack polling
+(adding `--webpack` on Next 16+), using `HOST` and `PORT`. It does not run custom
+package lifecycle scripts; use `WORKSPACE_NODE_COMMAND` for a custom command with
+its own shared-volume watcher configuration. Angular requires `ng serve --poll 1000`.
+Vite's Chokidar watcher uses the polling environment; other watcher engines need
+explicit project configuration such as `server.watch.usePolling: true`.
+
+Preparation without an npm lockfile uses `--package-lock=false`. Dependency lifecycle
+scripts remain project-owned and may change files; review their changes before committing.
+
+Use `workspace-node vite-start` for React/Vue Vite projects: it loads the existing
+Vite config and enables both Chokidar and Rolldown polling in memory. Use
+`workspace-node angular-start` for Angular's CLI polling. These helpers call the
+framework directly, so custom package lifecycle scripts require a custom command.
