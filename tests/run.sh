@@ -5,6 +5,8 @@ set -e
 # Validate the development tool contract before application integration tests.
 docker run --rm --network none --entrypoint /bin/sh -v "$PWD/development-tools.sh:/tmp/development-tools.sh:ro" "${IMAGE}" /tmp/development-tools.sh
 
+docker run --rm --network none --entrypoint /bin/sh -v "$PWD/workspace-runtime.sh:/tmp/workspace-runtime.sh:ro" "${IMAGE}" /tmp/workspace-runtime.sh
+
 if [[ -n "${DEBUG}" ]]; then
     set -x
 fi

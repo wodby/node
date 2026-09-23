@@ -1,0 +1,49 @@
+#!/bin/sh
+# Run project-owned package scripts without changing the repository or lockfile.
+set -eu
+export NODE_ENV=development
+export PORT="${PORT:-${NODE_PORT:-3000}}"
+export HOST="${HOST:-0.0.0.0}"
+export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+cd "${APP_ROOT:-/usr/src/app}"
+test -f package.json || { echo 'Workspace requires package.json' >&2; exit 1; }
+manager=$(node -p 'const p=require("./package.json"); (p.packageManager || "").split("@")[0]')
+if [ -z "$manager" ]; then
+    if [ -f pnpm-lock.yaml ]; then manager=pnpm
+    elif [ -f yarn.lock ]; then manager=yarn
+    else manager=npm; fi
+fi
+run_manager() {
+    case "$manager" in
+        npm) npm "$@" ;;
+        yarn|pnpm) corepack "$manager" "$@" ;;
+        *) echo "Unsupported package manager: $manager; use npm, yarn or pnpm" >&2; exit 1 ;;
+    esac
+}
+case "${1:-}" in
+    prepare)
+        case "$manager" in
+            npm)
+                if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then npm ci --include=dev --no-audit --no-fund
+                else npm install --include=dev --no-audit --no-fund; fi ;;
+            pnpm) run_manager install --frozen-lockfile ;;
+            yarn)
+                case "$(run_manager --version)" in
+                    1.*) run_manager install --frozen-lockfile ;;
+                    *) run_manager install --immutable ;;
+                esac ;;
+            *) run_manager install ;;
+        esac ;;
+    start)
+        if [ -n "${WODBY_WORKSPACE_COMMAND:-}" ]; then
+            exec /bin/sh -ec "$WODBY_WORKSPACE_COMMAND"
+        fi
+        script=$(node -p 'const s=require("./package.json").scripts || {}; s.dev ? "dev" : s.start ? "start" : ""')
+        [ -n "$script" ] || { echo 'Define a dev/start package script or WODBY_WORKSPACE_COMMAND' >&2; exit 1; }
+        case "$manager" in
+            npm) exec npm run "$script" ;;
+            yarn|pnpm) exec corepack "$manager" run "$script" ;;
+            *) run_manager run "$script" ;;
+        esac ;;
+    *) echo 'Usage: workspace-node prepare|start' >&2; exit 1 ;;
+esac
