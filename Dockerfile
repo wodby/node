@@ -9,6 +9,8 @@ FROM ${BASE_IMAGE}
 LABEL com.wodby.ci.cache="npm"
 
 ARG NODE_DEV
+# Only development variants implement the workspace runner contract.
+LABEL com.wodby.workspace.contract="${NODE_DEV:+1}"
 ENV NODE_DEV="${NODE_DEV}"
 ARG NPM_VERSION=11.19.1
 ARG TARGETPLATFORM
