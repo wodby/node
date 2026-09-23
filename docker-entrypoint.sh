@@ -19,6 +19,11 @@ cleanup () {
     exit 0
 }
 
+# Workspace startup is explicit and independent of NODE_ENV or the image CMD.
+if [[ "${WODBY_WORKSPACE:-}" == 1 ]]; then
+    exec workspace-node start
+fi
+
 sudo init_volumes
 exec_init_scripts
 
