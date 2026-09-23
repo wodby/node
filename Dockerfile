@@ -11,7 +11,6 @@ LABEL com.wodby.ci.cache="npm"
 ARG NODE_DEV
 ENV NODE_DEV="${NODE_DEV}"
 ARG NPM_VERSION=11.19.1
-ARG COREPACK_VERSION=0.36.0
 ARG TARGETPLATFORM
 
 ENV APP_ROOT="/usr/src/app" \
@@ -38,7 +37,7 @@ RUN set -ex; \
     \
     if [[ -n "${NODE_DEV}" ]]; then \
         apk add --update --no-cache -t .wodby-node-build-deps python3 g++ openssh ripgrep jq nano less tmux; \
-        npm install --global --prefix /usr/local "corepack@${COREPACK_VERSION}"; \
+        npm install --global --prefix /usr/local corepack@latest; \
         sed -i '/^node/s/!/*/' /etc/shadow; \
     fi; \
     \
