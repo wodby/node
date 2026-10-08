@@ -76,8 +76,15 @@ preparation, and login-shell tool discovery. CI checks the label and runtime too
 `workspace-node` enables Chokidar and Watchpack polling at 1000 ms for shared
 volumes. Set `WORKSPACE_POLL_INTERVAL` (100–60000 ms) to tune the cost, or
 `WORKSPACE_POLLING=0` to disable these defaults. Explicit watcher variables
-are preserved. This does not enable watching in scripts that have no watcher.
-Keep dependencies/build output excluded in project watcher configuration.
+are preserved. Keep dependencies/build output excluded in project watcher configuration.
+
+`workspace-node start` runs the package's `dev` script when it has one, and its `start`
+script otherwise. A `dev` script watches the files itself. A `start` script runs the
+application once, so `workspace-node` watches the checkout for it: when a file changes,
+it stops the application and starts it again, in the same container. It polls every
+`WORKSPACE_POLL_INTERVAL` milliseconds and leaves out `node_modules`, `.git`,
+`.wodby-workspace`, `.pnpm-store`, `.next`, `dist`, `build` and `coverage`.
+`WORKSPACE_NODE_WATCH=0` turns this off, and `WORKSPACE_NODE_COMMAND` is run as it is.
 
 `workspace-node next-start` starts the installed Next.js CLI with Webpack polling
 (adding `--webpack` on Next 16+), using `HOST` and `PORT`. It does not run custom
