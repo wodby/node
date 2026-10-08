@@ -46,3 +46,73 @@ for framework in vite next; do
  docker rm -f "$server" >/dev/null
  echo "$framework: second-container edit appeared in HTTP response"
 done
+
+# A package with only a start script runs its application once, so workspace-node restarts it
+# when the checkout changes: a second container's edit is served by the same container.
+docker run --rm --user 0 --entrypoint sh -v "$volume:/fixture" "$image" -ec '
+mkdir /fixture/plain
+cd /fixture/plain
+printf "{\"name\":\"plain\",\"private\":true,\"scripts\":{\"start\":\"node server.js\"}}" > package.json
+cat > server.js <<JS
+const http = require("http");
+http.createServer((req, res) => {
+  if (req.url === "/exit") process.exit(7);
+  res.end("before-edit");
+}).listen(process.env.PORT);
+JS
+chown -R node:node /fixture/plain
+'
+plain() { docker run -d --name "$server" --network none --entrypoint /usr/local/bin/workspace-node -e APP_ROOT=/fixture/plain -e WORKSPACE_POLL_INTERVAL=500 "$@" -v "$volume:/fixture" "$image" start >/dev/null; }
+edit() { docker run --rm --network none --entrypoint sh -v "$volume:/fixture" "$image" -ec "sed -i 's/$1/$2/' /fixture/plain/server.js"; }
+serves() {
+ for i in $(seq 1 40); do
+  if [ "$(docker exec "$server" curl -fsS http://localhost:3000/ 2>/dev/null || true)" = "$1" ]; then return 0; fi
+  sleep 1
+ done
+ echo "never answered $1" >&2; docker logs "$server" >&2; exit 1
+}
+plain
+serves before-edit
+first=$(docker inspect -f '{{.State.StartedAt}}' "$server")
+edit before-edit after-edit
+serves after-edit
+test "$(docker inspect -f '{{.State.StartedAt}} {{.RestartCount}}' "$server")" = "$first 0"
+# The application the package manager started is gone with it: one server listens, not two.
+test "$(docker exec "$server" pgrep -f '^node server\.js$' | wc -l | tr -d ' ')" = 1
+echo "start script: second-container edit restarted the application in the same container"
+
+# Stopping the container stops the application at once.
+began=$(date +%s)
+docker stop -t 30 "$server" >/dev/null
+test $(( $(date +%s) - began )) -lt 10
+test "$(docker inspect -f '{{.State.ExitCode}}' "$server")" = 143
+docker rm -f "$server" >/dev/null
+echo "start script: stopping the container stopped the application"
+
+# An application that ends by itself ends the container with its exit code.
+plain
+serves after-edit
+docker exec "$server" curl -s http://localhost:3000/exit >/dev/null || true
+for i in $(seq 1 20); do
+ [ "$(docker inspect -f '{{.State.Running}}' "$server")" = false ] && break
+ sleep 1
+done
+test "$(docker inspect -f '{{.State.Running}} {{.State.ExitCode}}' "$server")" = 'false 7'
+docker rm -f "$server" >/dev/null
+echo "start script: an application that ended took the container with it"
+
+# WORKSPACE_NODE_WATCH=0 runs the script as before, and a dev script is never wrapped.
+plain -e WORKSPACE_NODE_WATCH=0
+serves after-edit
+edit after-edit unwatched
+sleep 5
+test "$(docker exec "$server" curl -fsS http://localhost:3000/)" = after-edit
+docker rm -f "$server" >/dev/null
+docker run --rm --network none --entrypoint sh -v "$volume:/fixture" "$image" -ec 'cd /fixture/plain && sed -i "s/\"start\":/\"dev\":/" package.json'
+plain
+serves unwatched
+edit unwatched dev-edit
+sleep 5
+test "$(docker exec "$server" curl -fsS http://localhost:3000/)" = unwatched
+docker rm -f "$server" >/dev/null
+echo "start script: no watcher with WORKSPACE_NODE_WATCH=0 or for a dev script"

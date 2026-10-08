@@ -66,10 +66,73 @@ case "${1:-}" in
         fi
         script=$(node -p 'const s=require("./package.json").scripts || {}; s.dev ? "dev" : s.start ? "start" : ""')
         [ -n "$script" ] || { echo 'Define a dev/start package script or WORKSPACE_NODE_COMMAND' >&2; exit 1; }
-        case "$manager" in
-            npm) exec npm run "$script" ;;
-            yarn|pnpm) exec corepack "$manager" run "$script" ;;
-            *) run_manager run "$script" ;;
-        esac ;;
+        # A dev script watches the files itself: that is what it is for. A start
+        # script runs the application once, so a change to the code would be
+        # served only after the container restarted. It is run under a watcher
+        # that restarts it when a file in the checkout changes.
+        if [ "$script" = dev ] || [ "${WORKSPACE_NODE_WATCH:-1}" = 0 ]; then
+            case "$manager" in
+                npm) exec npm run "$script" ;;
+                yarn|pnpm) exec corepack "$manager" run "$script" ;;
+                *) run_manager run "$script" ;;
+            esac
+        fi
+        # Shared volumes that other containers write to don't deliver file
+        # events, so the files are polled. Installed packages, Git's own files
+        # and the usual build output are left out.
+        interval="${WORKSPACE_POLL_INTERVAL:-1000}"
+        case "$interval" in ''|*[!0-9]*) echo 'WORKSPACE_POLL_INTERVAL must be milliseconds' >&2; exit 1 ;; esac
+        [ "$interval" -ge 100 ] && [ "$interval" -le 60000 ] || { echo 'Polling interval must be 100..60000 ms' >&2; exit 1; }
+        pause=$(( (interval + 999) / 1000 ))
+        root=$(pwd -P)
+        fingerprint() {
+            find "$root" \( -name node_modules -o -path "$root/.git" -o -path "$root/.wodby-workspace" -o -path "$root/.pnpm-store" \
+                -o -path "$root/.next" -o -path "$root/dist" -o -path "$root/build" -o -path "$root/coverage" \) -prune \
+                -o -type f -exec stat -c '%Y %s %n' {} + 2>/dev/null | sort | cksum
+        }
+        child=
+        launch() {
+            # The script's processes get a session of their own, so stopping
+            # reaches the application the package manager started, not only
+            # the package manager.
+            case "$manager" in
+                npm) setsid npm run "$script" & ;;
+                *) setsid corepack "$manager" run "$script" & ;;
+            esac
+            child=$!
+        }
+        alive() { kill -0 -- "-$child" 2>/dev/null || kill -0 "$child" 2>/dev/null; }
+        stop() {
+            [ -n "$child" ] || return 0
+            kill -TERM -- "-$child" 2>/dev/null || kill -TERM "$child" 2>/dev/null || true
+            # An application that ignores the signal is killed after ten seconds.
+            n=0
+            while alive && [ "$n" -lt 100 ]; do sleep 0.1; n=$((n + 1)); done
+            kill -KILL -- "-$child" 2>/dev/null || true
+            wait "$child" 2>/dev/null || true
+            child=
+        }
+        trap 'stop; exit 143' HUP INT TERM
+        seen=$(fingerprint)
+        launch
+        while :; do
+            # Sleep in the background so a signal ends the wait at once.
+            sleep "$pause" &
+            wait $! || true
+            if ! kill -0 "$child" 2>/dev/null; then
+                # The application ended by itself. The container ends with it,
+                # as it would without watching.
+                code=0
+                wait "$child" || code=$?
+                child=
+                exit "$code"
+            fi
+            now=$(fingerprint)
+            [ "$now" != "$seen" ] || continue
+            seen=$now
+            echo 'workspace-node: the checkout changed; restarting' >&2
+            stop
+            launch
+        done ;;
     *) echo 'Usage: workspace-node prepare|start|next-start|vite-start|angular-start' >&2; exit 1 ;;
 esac
