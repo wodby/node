@@ -1,0 +1,32 @@
+# Temporary exceptions for the release scan, tracked in
+# https://github.com/wodby/node/issues/23. Remove them by 2026-11-15.
+#
+# npm bundles vulnerable copies of these packages, and the latest npm releases
+# still ship the same versions, so updating npm does not fix them. Each rule
+# covers only npm's own copy; the same package anywhere else still fails.
+
+# Keep accepted findings visible in scan reports.
+show-suppressed: true
+
+ignore:
+  - vulnerability: CVE-2026-102276
+    reason: brace-expansion bundled in npm; no npm release has the fix yet (wodby/node#23)
+    package:
+      name: brace-expansion
+      version: 5.0.9
+      type: npm
+      location: /usr/local/lib/node_modules/npm/**
+  - vulnerability: CVE-2026-102278
+    reason: brace-expansion bundled in npm; no npm release has the fix yet (wodby/node#23)
+    package:
+      name: brace-expansion
+      version: 5.0.9
+      type: npm
+      location: /usr/local/lib/node_modules/npm/**
+  - vulnerability: CVE-2026-19534
+    reason: undici bundled in npm; no npm release has the fix yet (wodby/node#23)
+    package:
+      name: undici
+      version: 6.28.0
+      type: npm
+      location: /usr/local/lib/node_modules/npm/**
