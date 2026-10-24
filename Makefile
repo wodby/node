@@ -97,9 +97,10 @@ image-ref:
 	@printf '%s\n' '$(REPO):$(TAG)'
 
 # Load each platform separately so the published image is the one Scout scanned.
+# Refresh packages and latest tooling even when the base image has not changed.
 .PHONY: buildx-load
 buildx-load:
-	docker buildx build --build-arg BASE_IMAGE="$(BASE_IMAGE)" --platform $(PLATFORM) -t $(REPO):$(TAG) \
+	docker buildx build --no-cache --build-arg BASE_IMAGE="$(BASE_IMAGE)" --platform $(PLATFORM) -t $(REPO):$(TAG) \
 		--build-arg NODE_VER=$(NODE_VER) \
 		--build-arg NODE_DEV=$(NODE_DEV) \
 		--load \

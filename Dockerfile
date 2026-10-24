@@ -12,7 +12,6 @@ ARG NODE_DEV
 # Only development variants implement the workspace runner contract.
 LABEL com.wodby.workspace.contract="${NODE_DEV:+1}"
 ENV NODE_DEV="${NODE_DEV}"
-ARG NPM_VERSION=11.19.1
 ARG TARGETPLATFORM
 
 ENV APP_ROOT="/usr/src/app" \
@@ -25,7 +24,7 @@ ENV PATH="/home/node/.yarn/bin:${APP_ROOT}/node_modules/.bin:${NPM_CONFIG_PREFIX
 # Upgrade inherited packages even when their existing versions satisfy dependencies.
 RUN set -ex; \
     apk upgrade --no-cache; \
-    npm install --global --prefix /usr/local "npm@${NPM_VERSION}"; \
+    npm install --global --prefix /usr/local --engine-strict npm@latest; \
     npm cache clean --force; \
     \
     apk add --update \
