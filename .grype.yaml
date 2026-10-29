@@ -9,24 +9,45 @@
 show-suppressed: true
 
 ignore:
-  - vulnerability: CVE-2026-102276
-    reason: brace-expansion bundled in npm; no npm release has the fix yet (wodby/node#23)
-    package:
-      name: brace-expansion
-      version: 5.0.9
-      type: npm
-      location: /usr/local/lib/node_modules/npm/**
-  - vulnerability: CVE-2026-102278
-    reason: brace-expansion bundled in npm; no npm release has the fix yet (wodby/node#23)
-    package:
-      name: brace-expansion
-      version: 5.0.9
-      type: npm
-      location: /usr/local/lib/node_modules/npm/**
-  - vulnerability: CVE-2026-19534
+  - vulnerability: CVE-2026-109869
     reason: undici bundled in npm; no npm release has the fix yet (wodby/node#23)
     package:
       name: undici
-      version: 6.28.0
+      version: 6.29.0
+      type: npm
+      location: /usr/local/lib/node_modules/npm/**
+  - vulnerability: CVE-2026-87018
+    reason: undici bundled in npm; no npm release has the fix yet (wodby/node#23)
+    package:
+      name: undici
+      version: 6.29.0
+      type: npm
+      location: /usr/local/lib/node_modules/npm/**
+  - vulnerability: CVE-2026-109383
+    reason: undici bundled in npm; no npm release has the fix yet (wodby/node#23)
+    package:
+      name: undici
+      version: 6.29.0
+      type: npm
+      location: /usr/local/lib/node_modules/npm/**
+  - vulnerability: CVE-2026-109924
+    reason: undici bundled in npm; no npm release has the fix yet (wodby/node#23)
+    package:
+      name: undici
+      version: 6.29.0
+      type: npm
+      location: /usr/local/lib/node_modules/npm/**
+  - vulnerability: CVE-2026-109932
+    reason: undici bundled in npm; no npm release has the fix yet (wodby/node#23)
+    package:
+      name: undici
+      version: 6.29.0
+      type: npm
+      location: /usr/local/lib/node_modules/npm/**
+  - vulnerability: CVE-2026-111997
+    reason: ip-address bundled in npm; no npm release has the fix yet (wodby/node#23)
+    package:
+      name: ip-address
+      version: 10.7.2
       type: npm
       location: /usr/local/lib/node_modules/npm/**
