@@ -4,7 +4,7 @@ BASE_IMAGE_REPOSITORY := node
 BASE_IMAGE_VERSION_SUFFIX := -alpine
 
 BASE_IMAGE_DIGEST_22.23.4-alpine := sha256:0e1754758c2df4cfa3e68d59e2e1b7374bb7fd9ea6328eaaacf15cc934af8202
-BASE_IMAGE_DIGEST_24.22.2-alpine := sha256:a34ab6d7f6f4813f4d0c5469d74685604b962fbdbf5793a7bc7b4998ecb867c8
+BASE_IMAGE_DIGEST_24.22.3-alpine := sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5
 BASE_IMAGE_DIGEST_26.13.1-alpine := sha256:6bd9ab43c0ec0190ca7b2d193906cb8b7edf6e7f4afa43ddeccd6452710bffb5
 
 # Fail before building when a version or variant has no reviewed pin.
